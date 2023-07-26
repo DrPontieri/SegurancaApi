@@ -1,0 +1,46 @@
+{
+    "Sample": {
+    "Title": "Signing users to an ASP.NET Core Web App and call Microsoft Graph",
+    "Level": 200,
+    "Client": "ASP.NET Core 3.1"
+  },
+  "AppRegistrations": [
+    {
+      "x-ms-id": "MsIdentytiApp",
+      "x-ms-name": "MsIdentytiApp-openidconnect-v2",
+      "x-ms-version": "1.0",
+      "replyUrlsWithType": [
+        {
+          "url": "https://localhost:7290/signin-oidc",
+          "type": "Web"
+        }
+      ],
+      "logoutUrl": "https://localhost:7290/signout-callback-oidc",
+      "requiredResourceAccess": [
+        {
+          "x-ms-resourceAppName": "Microsoft Graph",
+          "resourceAppId": "00000003-0000-0000-c000-000000000000",
+          "resourceAccess": [
+            {
+              "id": "bbe65605-a332-4068-89ed-00edd5116d17",
+              "type": "Scope",
+              "x-ms-name": "user.read"
+            }
+          ]
+        }
+      ],
+      "codeConfigurations": [
+        {
+          "settingFile": "/appsettings.json",
+          "replaceTokens": {
+            "appId": "1f6a2d04-8240-4870-be3f-b8cf2c425b6c",
+            "tenantId": "common",
+            "authorityEndpointHost": "https://login.microsoftonline.com/",
+            "msgraphEndpointHost": "https://graph.microsoft.com/",
+            "clientSecret": "3gl8Q~Erqrdsl8NiM~JupW69ghoOoMkHw5Id_b-f"
+          }
+        }
+      ]
+    }
+  ]
+}

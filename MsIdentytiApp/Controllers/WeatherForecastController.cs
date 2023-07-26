@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
 using Microsoft.Graph;
+using Microsoft.Identity.Web;
 
 namespace MsIdentytiApp.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
     public class WeatherForecastController : ControllerBase
     {
         private readonly GraphServiceClient _graphServiceClient;
@@ -26,11 +26,15 @@ namespace MsIdentytiApp.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        [Authorize (ScopeKeySection = "DownstreamApi:Scopes")]
+
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
+
             var user = await _graphServiceClient.Me.Request().GetAsync();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
+                User = user.DisplayName,
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
